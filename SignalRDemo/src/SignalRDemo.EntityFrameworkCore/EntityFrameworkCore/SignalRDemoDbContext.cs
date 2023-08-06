@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SignalRDemo.CustomerNotification.Entity;
 using SignalRDemo.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace SignalRDemo.EntityFrameworkCore
     public class SignalRDemoDbContext : AbpDbContext<SignalRDemoDbContext>
     {
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<ChatMessage> Messages { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside SignalRDemoDbContextModelCreatingExtensions.ConfigureSignalRDemo
@@ -41,7 +43,7 @@ namespace SignalRDemo.EntityFrameworkCore
             builder.Entity<AppUser>(b =>
             {
                 b.ToTable(AbpIdentityDbProperties.DbTablePrefix + "Users"); //Sharing the same table "AbpUsers" with the IdentityUser
-                
+
                 b.ConfigureByConvention();
                 b.ConfigureAbpUser();
 
